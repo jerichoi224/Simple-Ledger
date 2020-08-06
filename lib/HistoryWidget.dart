@@ -99,6 +99,7 @@ class _HistoryState extends State<HistoryWidget> with WidgetsBindingObserver{
           _deleteDBSpending(i.id);
           spendingList.remove(i);
           widget.numData["balance"] -= i.amount;
+          _saveSP("balance", widget.numData["balance"]);
           setState(() {});
         }
         else if(selectedIndex == 0){

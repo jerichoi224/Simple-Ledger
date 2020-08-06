@@ -83,11 +83,11 @@ class _SpendMoneyState extends State<SpendMoneyWidget> {
         entry.day = DateTime(dt.year, dt.month, dt.day).millisecondsSinceEpoch;
         entry.amount = val;
         entry.content = content;
+        // Save new Entry
+        _saveDB(entry);
 
         widget.numData["balance"] += val;
         _saveSP("balance", widget.numData["balance"]);
-        // Save new Entry
-        _saveDB(entry);
 
         // Reset Amount and Content
         amount = "0";

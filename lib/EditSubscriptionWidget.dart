@@ -29,10 +29,12 @@ class _EditSubscriptionState extends State<EditSubscriptionWidget> {
   double amount;
   int monthlyRenewDay;
   DateTime yearlyRenewDate;
+  Map<String, String> tmpData;
 
   @override
   void initState() {
     super.initState();
+    tmpData = new Map<String, String>();
     if(widget.mode == "NEW") {
       entry = new SubscriptionEntry();
       cycle = "monthly";
@@ -52,27 +54,6 @@ class _EditSubscriptionState extends State<EditSubscriptionWidget> {
         widget.dateController.text= dt.day.toString();
       }
     }
-
-    SystemChannels.lifecycle.setMessageHandler((msg){
-      if(msg==AppLifecycleState.resumed.toString()) {
-        if(this.mounted){
-          _readSP("SubscriptionContentText").then((val) {setState(() {widget.contentController.text = val;});});
-          _readSP("SubscriptionAmountText").then((val) {setState(() {
-            widget.amountController.text = widget.currency == "KOR" ? val.toInt().toString() : val.toString();
-          });});
-          _readSP("SubscriptionYearlyRenewDate").then((val) {val != null ?? setState(() { yearlyRenewDate = DateTime.fromMillisecondsSinceEpoch(val);});});
-          _readSP("SubscriptionMonthlyRenewDay").then((val) {setState(() {monthlyRenewDay = val;});});
-          _readSP("cycle").then((val) {setState(() {cycle = val;});});
-        }
-      } else if(msg==AppLifecycleState.paused.toString() || msg==AppLifecycleState.inactive.toString()) {
-        _saveSP("cycle", cycle);
-        widget.contentController.text.isNotEmpty ?? _saveSP("SubscriptionContentText", widget.contentController.text);
-        widget.amountController.text.isNotEmpty ?? _saveSP("SubscriptionAmountText", widget.amountController.text);
-        yearlyRenewDate != null ?? _saveSP("SubscriptionYearlyRenewDate", yearlyRenewDate.millisecondsSinceEpoch);
-        monthlyRenewDay != 0 ?? _saveSP("SubscriptionMonthlyRenewDay", monthlyRenewDay);
-      }
-      return null;
-    });
   }
 
   // Check if the value is numeric
@@ -146,6 +127,9 @@ class _EditSubscriptionState extends State<EditSubscriptionWidget> {
                                     children: <Widget>[
                                       Flexible(
                                           child: TextField(
+                                            onChanged: (val){
+                                              tmpData["SubscriptionContentText"] = val;
+                                            },
                                             controller: widget.contentController,
                                             decoration: InputDecoration(
                                               border: InputBorder.none,
@@ -176,6 +160,9 @@ class _EditSubscriptionState extends State<EditSubscriptionWidget> {
                                     children: <Widget>[
                                       Flexible(
                                           child: TextField(
+                                            onChanged: (val){
+                                              tmpData["SubscriptionAmountText"] = val;
+                                            },
                                             controller: widget.amountController,
                                             decoration: InputDecoration(
                                               border: InputBorder.none,
@@ -244,6 +231,9 @@ class _EditSubscriptionState extends State<EditSubscriptionWidget> {
                                                 Spacer(),
                                                 Flexible(
                                                     child: TextField(
+                                                      onChanged: (val){
+                                                        tmpData["SubscriptionMonthlyRenewDay"] = val;
+                                                      },
                                                       controller: widget.dateController,
                                                       decoration: InputDecoration(
                                                         border: InputBorder.none,
