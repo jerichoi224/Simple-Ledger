@@ -34,7 +34,6 @@ class _HomeState extends State<HomeWidget>{
 
     SystemChannels.lifecycle.setMessageHandler((msg){
       if(msg==AppLifecycleState.resumed.toString()) {
-        print("Checking Renew: " + DateTime.now().toLocal().toString());
         checkNewDay();
       }
       return null;
@@ -70,8 +69,6 @@ class _HomeState extends State<HomeWidget>{
   void checkNewDay(){
     DateTime now = DateTime.now().toLocal();
     num today = DateTime(now.year, now.month, now.day).millisecondsSinceEpoch;
-
-    print(widget.subscriptions);
 
     if(widget.numData["today"] == 0){
       widget.numData["today"] = today;

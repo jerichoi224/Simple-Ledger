@@ -29,17 +29,17 @@ class _EditSubscriptionState extends State<EditSubscriptionWidget> {
   double amount;
   int monthlyRenewDay;
   DateTime yearlyRenewDate;
-  Map<String, String> tmpData;
 
   @override
   void initState() {
     super.initState();
-    tmpData = new Map<String, String>();
+
     if(widget.mode == "NEW") {
       entry = new SubscriptionEntry();
       cycle = "monthly";
       monthlyRenewDay = 0;
     }
+
     if(widget.mode == "EDIT"){
       entry = widget.item;
       DateTime dt = DateTime.fromMillisecondsSinceEpoch(entry.day);
@@ -54,6 +54,7 @@ class _EditSubscriptionState extends State<EditSubscriptionWidget> {
         widget.dateController.text= dt.day.toString();
       }
     }
+
   }
 
   // Check if the value is numeric
@@ -127,9 +128,6 @@ class _EditSubscriptionState extends State<EditSubscriptionWidget> {
                                     children: <Widget>[
                                       Flexible(
                                           child: TextField(
-                                            onChanged: (val){
-                                              tmpData["SubscriptionContentText"] = val;
-                                            },
                                             controller: widget.contentController,
                                             decoration: InputDecoration(
                                               border: InputBorder.none,
@@ -160,9 +158,6 @@ class _EditSubscriptionState extends State<EditSubscriptionWidget> {
                                     children: <Widget>[
                                       Flexible(
                                           child: TextField(
-                                            onChanged: (val){
-                                              tmpData["SubscriptionAmountText"] = val;
-                                            },
                                             controller: widget.amountController,
                                             decoration: InputDecoration(
                                               border: InputBorder.none,
@@ -231,9 +226,6 @@ class _EditSubscriptionState extends State<EditSubscriptionWidget> {
                                                 Spacer(),
                                                 Flexible(
                                                     child: TextField(
-                                                      onChanged: (val){
-                                                        tmpData["SubscriptionMonthlyRenewDay"] = val;
-                                                      },
                                                       controller: widget.dateController,
                                                       decoration: InputDecoration(
                                                         border: InputBorder.none,

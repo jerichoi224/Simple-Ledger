@@ -91,7 +91,7 @@ class _SpendMoneyState extends State<SpendMoneyWidget> {
 
         // Reset Amount and Content
         amount = "0";
-        widget._myController.text = "";
+        widget.stringData["spendContent"] = "";
       }
     }else if(s == "C"){
       amount = "0";
