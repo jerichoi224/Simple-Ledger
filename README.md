@@ -5,6 +5,9 @@
 
 A Simple Ledger App, sibling to the Money Tracker (Its almost a clone as of v.1.0.0) But, Hoping to add a bit more here and there. I initially thought of buildling the Money Tracker and Simple Ledger in one app, but realized they take a different approach in tracking money, and having them in one app didn't quite make sense. I think it was a good idea, as I found some problems I should fix in money tracker while rewriting the code from scratch.
 
+The app is also availabe in the [Google Play Store](https://play.google.com/store/apps/details?id=com.kahluabear.simple_ledger)
+
+
 
 ## Basic Overview
 Its a simple Ledger. You Spend/Save Money. You can add subscriptions if you want which will automatically create an entry either monthly or yearly. Currently Supports USD and KRW, but I can probably easily add more. I do plan to add more system languages as well.
