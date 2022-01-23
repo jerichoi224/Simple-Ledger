@@ -133,6 +133,8 @@ class _SubscriptionListState extends State<SubscriptionListWidget> {
   Widget build(BuildContext context) {
     return new Scaffold(
         appBar: AppBar(
+          backgroundColor: Color.fromRGBO(155, 195, 255, 1),
+          foregroundColor: Colors.black,
           title: Text("Subscription List"),
         ),
         body: Builder(

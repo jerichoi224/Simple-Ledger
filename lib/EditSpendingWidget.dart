@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:simple_ledger/database_helper.dart';
 import 'currencyInfo.dart';
+import 'dart:math';
 
 class EditSpendingWidget extends StatefulWidget {
   final contentController = TextEditingController();
@@ -37,9 +38,18 @@ class _EditSpendingState extends State<EditSpendingWidget> {
     return currencyInfo().getCurrencyText(widget.currency, amount);
   }
 
+  num roundDouble(num value, int places){
+    num mod = pow(10.0, places);
+    return ((value * mod).round()/ mod);
+  }
+
   @override
   Widget build(BuildContext context) {
-    widget.amountController.text = widget.item.amount.toString();
+    if(currencyInfo().getCurrencyDecimalPlaces(widget.currency) == 0)
+      widget.amountController.text = widget.item.amount.toInt().toString();
+    else
+      widget.amountController.text = widget.item.amount.toString();
+
     widget.contentController.text = widget.item.content;
 
     return WillPopScope(
@@ -49,6 +59,9 @@ class _EditSpendingState extends State<EditSpendingWidget> {
         },
         child: new Scaffold(
             appBar: AppBar(
+              backgroundColor: Color.fromRGBO(155, 195, 255, 1),
+              foregroundColor: Colors.black,
+
               title: Text("Edit Entry"),
             ),
             body: Builder(
@@ -79,7 +92,9 @@ class _EditSpendingState extends State<EditSpendingWidget> {
                                               border: InputBorder.none,
                                               hintText: 'Spending Amount',
                                             ),
-                                            keyboardType: TextInputType.number,
+                                            keyboardType: currencyInfo().getCurrencyDecimalPlaces(widget.currency) == 0 ?
+                                              TextInputType.numberWithOptions(decimal: false)
+                                            : TextInputType.number,
                                             textAlign: TextAlign.start,
                                           )
                                       )
@@ -138,7 +153,7 @@ class _EditSpendingState extends State<EditSpendingWidget> {
                                               ));
                                               return;
                                             }
-                                            widget.item.amount = num.parse(widget.amountController.text);
+                                            widget.item.amount = roundDouble(num.parse(widget.amountController.text), 2);
                                             widget.item.content = widget.contentController.text;
                                             Navigator.pop(context, widget.item);
                                           },

@@ -122,6 +122,8 @@ class _HomeState extends State<HomeWidget>{
 
     return Scaffold(
       appBar: AppBar(
+        foregroundColor: Colors.black,
+        backgroundColor: Color.fromRGBO(155, 195, 255, 1),
         title: Text("Simple Ledger"),
         actions: [
           IconButton(
@@ -142,6 +144,7 @@ class _HomeState extends State<HomeWidget>{
       ),
       bottomNavigationBar: BottomNavigationBar(
         onTap: onTabTapped, // new
+        selectedItemColor: Color.fromRGBO(155, 195, 255, 1),
         currentIndex: _currentIndex, // new
         items: [
           BottomNavigationBarItem(

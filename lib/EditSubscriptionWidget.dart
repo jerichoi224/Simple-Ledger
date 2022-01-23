@@ -46,7 +46,10 @@ class _EditSubscriptionState extends State<EditSubscriptionWidget> {
 
       cycle = entry.cycle == 0 ? "monthly" : "yearly";
       widget.contentController.text = entry.content;
-      widget.amountController.text = entry.amount.toString();
+      if(currencyInfo().getCurrencyDecimalPlaces(widget.currency) == 0)
+        widget.amountController.text = widget.item.amount.toInt().toString();
+      else
+        widget.amountController.text = widget.item.amount.toString();
       monthlyRenewDay = dt.day;
       yearlyRenewDate = DateTime(DateTime.now().toLocal().year, dt.month, dt.day);
 
@@ -101,6 +104,8 @@ class _EditSubscriptionState extends State<EditSubscriptionWidget> {
             },
             child: Scaffold(
                 appBar: AppBar(
+                  backgroundColor: Color.fromRGBO(155, 195, 255, 1),
+                  foregroundColor: Colors.black,
                   title: Text(
                       widget.mode == "NEW" ? "Add Subscription" : "Edit Subscription"
                   ),

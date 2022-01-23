@@ -116,6 +116,8 @@ class _SettingsState extends State<SettingsWidget> {
             },
             child: new Scaffold(
                 appBar: AppBar(
+                  backgroundColor: Color.fromRGBO(155, 195, 255, 1),
+                  foregroundColor: Colors.black,
                   title: Text("Settings"),
                 ),
                 body: Builder(
